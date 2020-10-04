@@ -6,6 +6,8 @@ const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
 
 module.exports = {
   siteMetadata: {
+    siteTitle: `Jazzy JS`,
+    siteLanguage: `en`,
     siteTitleAlt: `Jazzy JS - Improv JS`,
   },
   plugins: [
