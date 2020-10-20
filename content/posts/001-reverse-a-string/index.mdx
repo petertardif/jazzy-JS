@@ -1,5 +1,5 @@
 ---
-title: (Draft) Reverse a String with Benny Carter
+title: Reverse a String with Benny Carter
 date: 2020-09-27
 tags:
   - String
@@ -20,197 +20,89 @@ My father, Richie T, has an old real-to-real music player. When I was growing up
   view="list"
 />
 
+#### Solve the Problem
+
 Now let's look at an ultimate classic and maybe one of the first functions I attempted to solve when I first learned JavaScript: "Reverse a String".
 
-```js react-live
-const onClick = () => {
-  alert("You opened me");
-};
-render(<button onClick={onClick}>Alohomora!</button>);
-```
+##### Built in Methods
 
-Here will a normal code block go:
+Fortunately, JavaScript has built in methods to accomplish this task. 
 
 ```js
-(function() {
-
-var cache = {};
-var form = $('form');
-var minified = true;
-
-var dependencies = {};
-
-var treeURL = 'https://api.github.com/repos/PrismJS/prism/git/trees/gh-pages?recursive=1';
-var treePromise = new Promise(function(resolve) {
-	$u.xhr({
-		url: treeURL,
-		callback: function(xhr) {
-			if (xhr.status < 400) {
-				resolve(JSON.parse(xhr.responseText).tree);
-			}
-		}
-	});
-});
+// using JS built in methods
+const reverseStr = (str) => {
+	return str
+		.split('')
+		.reverse()
+		.join('');
+}
 ```
+First, a function is created using arrow syntax that accepts a string as an argument. Since an empty string is passed into the method as an 
+argument, the split method separates our original string by each indexed character and puts it into an array.  The reverse method, and this is a shocker here,  
+reverses the order of the array and the join method assembles each index of the array back into a string. 
 
-A code block with a JSDoc comment, short, and long comment:
+Another variation would be to use the spread operator to split the string at each index.
 
 ```js
-/**
- * Get value out of string (e.g. rem => px)
- * If value is px strip the px part
- * If the input is already a number only return that value
- * @param {string | number} input
- * @param {number} [rootFontSize]
- * @return {number} Number without last three characters
- * @example removeLastThree('6rem') => 6
- */
-const getValue = (input, rootFontSize = 16) => {
-  if (typeof input === `number`) {
-    return input / rootFontSize;
-  }
-
-  const isPxValue = input.slice(-2) === `px`;
-
-  if (isPxValue) {
-    return parseFloat(input.slice(0, -2));
-  }
-
-  return parseFloat(input.slice(0, -3));
-};
-
-// This is a little helper function
-const helper = (a, b) => a + b;
-
-// This is also a little helper function but this time with a really long one-line comment that should show some more details
-const morehelper = (a, b) => a * b;
-
-export { getValue, helper, morehelper };
+// using built in methods and Spread Operator
+const reverseStr = (str) => {
+	return [...str].reverse().join('');
+}
 ```
 
-Normal block without language:
+Very simple, but alas, when learning fundamentals of programming it is always better to learn from scratch.  
+You do not get a badge in Scout's for building a fire with a lighter.
+So let's get out a piece of flint and find some sticks and leaves to solve this problem from the ground up. 
 
-```
-import Test from "../components/test"
+##### Iterators
 
-const Layout = ({ children }) => (
-  <Test>
-    {children}
-  </Test>
-)
+To solve problems where something has to happen to each item in an array or string, my first thought is always to use a loop.  
 
-export default Layout
-```
+But first, create a new empty string to hold our new reversed string. Next, start a loop where you will take each character in the original 
+string and add it to the beginning of the new empty string. Once the loop completes, the original string should be reversed and you just have to 
+return the new reversed string.
 
-Code block with code highlighting:
+```js 
+// using a for of loop
+const reverseStr = (str) => {
+  // create a new empty string to hold the reversed string that we will return
+	let reversedStr = '';
 
-```jsx:title=src/components/post.jsx {5-7,10}
-import React from "react";
-
-const Post = ({ data: { post } }) => (
-  <Layout>
-    <Heading variant="h2" as="h2">
-      {post.title}
-    </Heading>
-    <p
-      sx={{
-        color: `secondary`,
-        mt: 3,
-        a: { color: `secondary` },
-        fontSize: [1, 1, 2],
-      }}
-    >
-      <span>{post.date}</span>
-      {post.tags && (
-        <React.Fragment>
-          {` — `}
-          <ItemTags tags={post.tags} />
-        </React.Fragment>
-      )}
-    </p>
-    <section
-      sx={{
-        ...CodeStyles,
-        my: 5,
-        ".gatsby-resp-image-wrapper": { my: 5, boxShadow: `lg` },
-      }}
-    >
-      <MDXRenderer>{post.body}</MDXRenderer>
-    </section>
-  </Layout>
-);
-
-export default Post;
+	for (let character of str) {
+    // reassign reversedStr to add the current indexed character to the beginning of the string
+		reversedStr = character + reversedStr;
+	}
+	return reversedStr;
+}
 ```
 
-Code block without title:
+Another flavor of the same concept is to use a for loop that starts at the end of the original string, grabs the last character, adds it
+to the new empty string, and then moves through the original string backwards. 
 
-```
-Harry Potter and the Philosopher's Stone
-```
-
-Code block without lineNumbers (but lang):
-
-```text noLineNumbers
-Harry Potter and the Chamber of Secrets
-```
-
-Code block without lineNumbers (and without lang):
-
-```noLineNumbers
-Harry Potter and the Chamber of Secrets
+```js
+const reverseStr = (str) => {
+	let reversedStr = '';
+  
+	for (i = str.length - 1; i >= 0; i--) {
+		reversedStr += str[i];
+	}
+	return reversedStr;
+}
 ```
 
-Code block with only the title:
+Is it possible to use higher order functions? Of course! The map function could be implemented similiar to the for of loop, but let's try to use a reducer function. 
+According to [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce), "The reduce() method executes 
+the callback once for each assigned value present." Our callback function should then add each character to the beginning of our accumulator. But
+first we must use the split method to get an array like we did in our first attempt. 
 
-```:title=src/utils/scream.js
-const scream = (input) => window.alert(input)
+```js
+// using Reduce method
+const reverseStr = (str) => {
+	return str
+		.split('')
+		.reduce((reversedStr, character) => character + reversedStr);
+}
 ```
 
-Code block with only the title but without lineNumbers:
-
-```:title=src/utils/scream.js noLineNumbers
-const scream = (input) => window.alert(input)
-```
-
-Line highlighting without code title:
-
-```js {2,4-5}
-const test = 3;
-const foo = "bar";
-const harry = "potter";
-const hermione = "granger";
-const ron = "weasley";
-```
-
-Here will `inline code` go, just inside the text. Wow!
-
-Code block without line numbers but with highlighting, language, and title:
-
-```tsx:title=src/components/blog.tsx {7-9,16} noLineNumbers
-import React from "react";
-
-const Blog = ({ posts }: PostsProps) => {
-  const { tagsPath, basePath } = useSiteMetadata();
-
-  return (
-    <Layout>
-      <Flex sx={{ alignItems: `center`, justifyContent: `space-between` }}>
-        <Heading variant="h2" as="h2">
-          Blog
-        </Heading>
-        <Styled.a
-          as={Link}
-          sx={{ variant: `links.secondary` }}
-          to={`/${basePath}/${tagsPath}`.replace(/\/\/+/g, `/`)}
-        >
-          View all tags
-        </Styled.a>
-      </Flex>
-      <Listing posts={posts} sx={{ mt: [4, 5] }} />
-    </Layout>
-  );
-};
-
-export default Blog;
-```
+There are many possible solutions to reverse a string using JavaScript. Above we walked through five different flavors. Feel free to comment
+below if you have a different unique method. Take care!
