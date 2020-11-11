@@ -1,0 +1,119 @@
+---
+title: Palindrome with Tommy Flanagan
+date: 2020-11-06
+tags:
+  - String
+	- Fundamentals
+	- Palindrome
+  - Benny Carter
+---
+
+import SpotifyPlayer from "./SpotifyPlayer";
+
+#### Tommy Flanagan - "With Malice Toward None"
+
+Good old Tommy Flanagan! This is how I truly began to appreciate jazz. I think it helped that my father played this album non-stop for a few years as well, but nonetheless this is a very calming tune truly highlighting Flanagan's gentle approach and uplifts the listener. You will notice that this is a great song to have in the background while writing code, from beginning to end. Which brings us to the palindrome coding challenge in the next section. So, let's put on some Tommy and let's get to work!
+
+<SpotifyPlayer
+  uri="spotify:track:2acN0TYjDe0njY24d6ddyX"
+  size="compact"
+  theme="black"
+  view="list"
+/>
+
+#### Solve the Problem
+
+This is a very common problem that most beginners attempt to solve as part of a tutorial series when first learning JavaScript. For a quick review, a palindrome is a word, phrase, or sequence that reads the sanem backwards as forwards. An example would be the date "02/02/2020" or the word "racecar."  Give this date and word a try, take a few seconds and write them down one character at a time starting from the final character and moving to the first character. 
+
+Now that we have a solid understanding of the problem to be solved, let's accomplish the same task but with code!
+
+##### Built in Methods
+
+String manipulation is very common and quite frakly is the work that many frontend devs and software engineers perform frequently. As a result and again, JavaScript has built in methods to accomplish this task that are almost indentical to reversing a string. 
+
+```js
+// using JS built in methods
+const isPalindrome = (str) => {
+	let cleanStr = str.toLowerCase().replace(/[\W_]/g, '');
+	return (
+		cleanStr
+			.split('')
+			.reverse()
+			.join('') === cleanStr
+	);
+}
+```
+Let's break it down. First, a function expression is created called isPalindrome() that accepts a string as an a parameter. The argument that is passed in as str is then converted to lowercase and uses the built in method replace to remove any characters that are not words with an empty string. It also uses regular expressions and you can read up on (here) [https://regexr.com/]. Next, the function expression reverses the cleanStr variable and compares it to the original cleanStr. This function will return true if they match and false if they do not. Pretty simple!  But  we are not here 
+
+Another variation, just like (reverse a string)[https://www.jazzyjs.dev/reverse-a-string-with-benny-carter], would be to use the spread operator to split the string at each index.
+
+```js
+// using built in methods and Spread Operator
+const isPalindrome = (str) => {
+	let cleanStr = str.toLowerCase().replace(/[\W_]/g, '');
+	return [...cleanStr].reverse().join('') === cleanStr;
+}
+```
+
+Again, when learning fundamentals of programming it is always better to learn from scratch.  Let's solve this problem from the ground up. 
+
+##### Iterators
+
+I do not know why, but I always want to use a for loop to solve every problem. Let's give it a go.
+
+```js 
+function isPalindrome(str) {
+	str = str.toLowerCase().replace(/[\W_]/g, '');
+	let length = str.length;
+	// only need to iterate through the half of the string since we are comparing the beginning character to the end character with each iteration
+	for (let i = 0; i < length / 2; i++) {
+		// simultaneously checking the first character and the last index, as long as they match the loop continues
+		if (str[i] !== str[length - 1 - i]) {
+			return false;
+		}
+	}
+	return true;
+}
+```
+
+I absolutely love this solution. First we declare our function and perform the same cleansing to the argument. Next we set a variable for the string length. This is followed by a normal for loop with a slight twist added. Notice the loop will continue for the length of the string, but we divided this in half. Why? As we iterate through the string we are simultaneously comparing the first character to the last character. This can be seen in the if statement.  If the two characters do not match, then we return false as we do not have a palindrome. Essentially we are checking the whole string, but in half the time. Isn't that great? Go ahead and say "yes it is!"
+
+Let's do one more iterator and this time we will use a for of loop. 
+
+```js
+const isPalindrome = (str) => {
+	let cleanStr = cleanStr.toLowerCase().replace(/[\W_]/g, '');
+	const charArray = cleanStr.split('');
+
+	for (let index of charArray) {
+		if (index !== charArray.pop()) {
+			return false;
+		}
+	}
+	return true;
+};
+```
+
+Alright, function expression again and cleaning our string by removing non-alphanumeric characteres. Next we split the string into an array.  Start the for of loop and notice the different syntax than the traditional for loops. I feel that for of loops are much easier to read and this should be our ultimate goal to write readable code. I (and probably every developer in the world) cannot tell you how many times I have come back to code I have written and I say, "ok, what is this doing?" For of loop begins by taking the first indexed element in the array and then popping off the last element in the array for a comparison. Same logic as above to cut our time in half with the simultaneously checking the first and last elements.  If they do not match, bam!  No palindrome. If we get to the middle of the array with no falsely values, then we return true and shout out PALINDROME!
+
+##### Higher Order Functions
+
+It is easy to mix and match many higher order functions in the code above (.map(), .reduce(), .every()) and achieve the same results.  Let's do so and use the every method. 
+
+```js
+// using .every()
+function isPalindrome(str) {
+	let charArray = str.toLowerCase().replace(/[\W_]/g, '').split('');
+	let length = charArray.length;
+	let result = charArray.every((letter, index) => {
+		return letter === charArray[length - 1 - index];
+	});
+	return result;
+}
+```
+
+Back to a function declaration in the first line and simultaneously cleaning our string while also splitting into an array. Next we set the variable for the length of the array.  The next step is to declare our variable of result that we will return.  The every higher order function in JS will return a boolean: true if all indexed values meet our condition and false if they do not. So we iterate over every index and perform the same first to last comparison of indexed values in the array to cut the time in half. If all indexed values match, then true is returned. 
+
+##### Conclusion
+
+There you have it. Five separate methods for solving the palindome problem. Again very similar to reverse a string in the pattern and definitely some jazzy JS improvisations along the way.  Do you have additional novel ways to solve it?  Drop them in the comments below.
