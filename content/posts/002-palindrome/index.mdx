@@ -10,7 +10,7 @@ import SpotifyPlayer from "../001-reverse-a-string/SpotifyPlayer";
 
 #### Tommy Flanagan - "With Malice Toward None"
 
-Good old Tommy Flanagan! This is how I truly began to appreciate jazz. I think it helped that my father played this album non-stop for a few years as well, but nonetheless this is a very calming tune truly highlighting Flanagan's gentle approach and uplifts the listener. You will notice that this is a great song to have in the background while writing code, from beginning to end. Which brings us to the palindrome coding challenge in the next section. So, let's put on some Tommy and let's get to work!
+Good old Tommy Flanagan! helped is how I truly began to appreciate jazz. I think it also helped that my father played this album non-stop for a few years, but nonetheless this is a very calming tune that truly highlights Flanagan's gentle approach while lifting up the listener. You will notice that this is a great song to have on in the background while writing code from beginning to end. Which brings us to our next coding challenge: palindrome. So, let's put on some Tommy and get to work!
 
 <SpotifyPlayer
   uri="spotify:track:2acN0TYjDe0njY24d6ddyX"
@@ -21,13 +21,13 @@ Good old Tommy Flanagan! This is how I truly began to appreciate jazz. I think i
 
 #### Solve the Problem
 
-This is a very common problem that most beginners attempt to solve as part of a tutorial series when first learning JavaScript. For a quick review, a palindrome is a word, phrase, or sequence that reads the sanem backwards as forwards. An example would be the date "02/02/2020" or the word "racecar."  Give this date and word a try, take a few seconds and write them down one character at a time starting from the final character and moving to the first character. 
+This is a very common problem that most beginners attempt to solve as part of a tutorial series when first learning JavaScript. For a quick review, a palindrome is a word, phrase, or sequence that reads the same backwards as forwards. An example would be the date "02/02/2020" or word "racecar."  Give this date and word a try. Take a few seconds and write them down one character at a time starting from the final character and moving to the first. Do you see it? Palindrome!
 
-Now that we have a solid understanding of the problem to be solved, let's accomplish the same task but with code!
+Now that we have a solid understanding of what a palindome is, we need to solve the problem of checking whether an input into a function meets the definition of a palindome. Let's accomplish this task with code!
 
 ##### Built in Methods
 
-String manipulation is very common and quite frakly is the work that many frontend devs and software engineers perform frequently. As a result and again, JavaScript has built in methods to accomplish this task that are almost indentical to reversing a string. 
+String manipulation is very common and quite frankly is the work that many frontend devs and software engineers perform frequently. As a result and again, JavaScript has built in methods to accomplish this task that are almost indentical to reversing a string. 
 
 ```js
 // using JS built in methods
@@ -41,7 +41,7 @@ const isPalindrome = (str) => {
 	);
 }
 ```
-Let's break it down. First, a function expression is created called isPalindrome() that accepts a string as an a parameter. The argument that is passed in as str is then converted to lowercase and uses the built in method replace to remove any characters that are not words with an empty string. It also uses regular expressions and you can read up on (here) [https://regexr.com/]. Next, the function expression reverses the cleanStr variable and compares it to the original cleanStr. This function will return true if they match and false if they do not. Pretty simple!  But  we are not here 
+Let's break it down. First, a function expression is created called isPalindrome() that accepts a string as an a parameter. The argument 'str' is passed in, converted to lowercase, and used by the built in method replace to remove any characters that are not words with empty strings. It also uses regular expressions and you can read up on (here) [https://regexr.com/]. Next, the function expression reverses the cleanStr variable and compares it to the original cleanStr. This function will return true if they match and false if they do not. Pretty simple!  
 
 Another variation, just like (reverse a string)[https://www.jazzyjs.dev/reverse-a-string-with-benny-carter], would be to use the spread operator to split the string at each index.
 
@@ -57,7 +57,7 @@ Again, when learning fundamentals of programming it is always better to learn fr
 
 ##### Iterators
 
-I do not know why, but I always want to use a for loop to solve every problem. Let's give it a go.
+I do not know why, but I always want to use a for loop to solve every problem. It just seems so natural to me.  For example, find an item in a list, use a for loop. Need to find a character in string or array, use a for loop.  Having trouble with a pesky neighbor, use a for loop! Let's give the ole for loop a go.
 
 ```js 
 function isPalindrome(str) {
@@ -74,7 +74,7 @@ function isPalindrome(str) {
 }
 ```
 
-I absolutely love this solution. First we declare our function and perform the same cleansing to the argument. Next we set a variable for the string length. This is followed by a normal for loop with a slight twist added. Notice the loop will continue for the length of the string, but we divided this in half. Why? As we iterate through the string we are simultaneously comparing the first character to the last character. This can be seen in the if statement.  If the two characters do not match, then we return false as we do not have a palindrome. Essentially we are checking the whole string, but in half the time. Isn't that great? Go ahead and say "yes it is!"
+I absolutely love this solution and not because we are using a for loop. First we declare our function and perform the same cleansing to the argument. Next we set a variable for the string length. This is followed by a normal for loop with a slight twist added. Notice the loop will continue for the length of the string, but we divided this in half. Why? As we iterate through the string we are simultaneously comparing the first character to the last character. This can be seen in the if statement.  If the two characters do not match, then we return false as we do not have a palindrome. Essentially we are checking the whole string, but in half the time. Isn't that great? Go ahead and say "yes it is!"
 
 Let's do one more iterator and this time we will use a for of loop. 
 
@@ -92,11 +92,11 @@ const isPalindrome = (str) => {
 };
 ```
 
-Alright, function expression again and cleaning our string by removing non-alphanumeric characteres. Next we split the string into an array.  Start the for of loop and notice the different syntax than the traditional for loops. I feel that for of loops are much easier to read and this should be our ultimate goal to write readable code. I (and probably every developer in the world) cannot tell you how many times I have come back to code I have written and I say, "ok, what is this doing?" For of loop begins by taking the first indexed element in the array and then popping off the last element in the array for a comparison. Same logic as above to cut our time in half with the simultaneously checking the first and last elements.  If they do not match, bam!  No palindrome. If we get to the middle of the array with no falsely values, then we return true and shout out PALINDROME!
+Alright, function expression again and cleaning our string by removing non-alphanumeric characters. Next we split the string into an array.  Start the for of loop and notice the different syntax from the traditional for loop. For of loops are much easier to read and this should be our ultimate goal to write readable code. I (and probably every developer in the world) cannot tell you how many times I have come back to code I have written and I say, "ok, what is this doing and what was I thinking?"  The for of loop begins by taking the first indexed element in the array and then popping off the last element in the array for a comparison. Same logic as above to cut our time in half with the simultaneously checking of the first and last elements.  If they do not match, bam!  No palindrome. If we get to the middle of the array with no falsely values, then we return true and shout out PALINDROME! Go ahead and do it. Get crazy, it feels good!
 
 ##### Higher Order Functions
 
-It is easy to mix and match many higher order functions in the code above (.map(), .reduce(), .every()) and achieve the same results.  Let's do so and use the every method. 
+It is easy to mix and match many higher order functions in the code above (.map(), .reduce(), .every()) and achieve the same results.  Let's use one and we will pick the .every method. 
 
 ```js
 // using .every()
@@ -110,8 +110,8 @@ function isPalindrome(str) {
 }
 ```
 
-Back to a function declaration in the first line and simultaneously cleaning our string while also splitting into an array. Next we set the variable for the length of the array.  The next step is to declare our variable of result that we will return.  The every higher order function in JS will return a boolean: true if all indexed values meet our condition and false if they do not. So we iterate over every index and perform the same first to last comparison of indexed values in the array to cut the time in half. If all indexed values match, then true is returned. 
+Back to a function declaration in the first line and simultaneously cleaning our string while also splitting into an array. Next we set the variable for the length of the array.  The next step is to declare our variable  result that we will return.  The every higher order function in JS will return a boolean: true if all indexed values meet our condition and false if they do not. So we iterate over every index and perform the same first to last comparison of indexed values in the array to cut the time in half. If all indexed values match, then true is returned. 
 
 ##### Conclusion
 
-There you have it. Five separate methods for solving the palindome problem. Again very similar to reverse a string in the pattern and definitely some jazzy JS improvisations along the way.  Do you have additional novel ways to solve it?  Drop them in the comments below.
+There you have it. Five separate methods for solving the palindome problem. Again very similar to reverse a string in the pattern and definitely some jazzy JS improvisations along the way.  Do you have additional novel ways to solve the palindrome?  Drop them in the comments below.
